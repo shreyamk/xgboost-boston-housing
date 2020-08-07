@@ -1,6 +1,10 @@
 # Loading packages
 from sklearn.datasets import load_boston
+import matplotlib.pyplot as plt
+import xgboost as xgb
+from sklearn.metrics import mean_squared_error
 import pandas as pd
+import numpy as np
 
 boston = load_boston()
 
@@ -33,9 +37,19 @@ print(boston.DESCR)
 # Converting to a Pandas dataframe
 data = pd.DataFrame(boston.data, columns=boston.feature_names)
 
-# Looking at the data
+# Adding price to dataframe
+data['PRICE'] = boston.target
+
+# Overview of data
 data.head()
 data.info()   # No nulls in dataset, features of type float.
 data.describe()
 
+# Separate data into X and y
+X, y = data.iloc[:,:-1], data.iloc[:,-1]
+
+print(X.head())
+
+# Convert to dmatrix for enhanced performance
+data_dmatrix = xgb.DMatrix(data=X,label=y)
 
