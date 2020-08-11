@@ -71,3 +71,13 @@ cv_results.head()
 
 # Final boosting round metric
 print((cv_results["test-rmse-mean"]).tail(1))
+
+# Visualize tree
+xgb.plot_tree(xg_reg,num_trees=0)
+plt.rcParams['figure.figsize'] = [50, 10]
+plt.show()
+
+# Feature importance
+xgb.plot_importance(xg_reg)
+plt.rcParams['figure.figsize'] = [5, 5]
+plt.show()
